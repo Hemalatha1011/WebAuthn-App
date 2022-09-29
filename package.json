@@ -17,6 +17,8 @@
   "dependencies": {
     "@carbon/charts-svelte": "^1.5.6",
     "base64url": "^2.0.0",
+    "base64-arraybuffer": "^1.0.2",
+    "buffer": "^6.0.3",
     "carbon-components-svelte": "^0.70.9",
     "d3": "^7.6.1",
     "page": "^1.11.6"

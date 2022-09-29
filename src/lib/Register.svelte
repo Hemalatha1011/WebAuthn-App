@@ -23,20 +23,19 @@
     getMakeCredentialsChallenge({ username, name })
       .then((response) => {
         let publicKey = preformatMakeCredReq(response);
-        console.log(publicKey);
         return navigator.credentials.create({ publicKey });
       })
       .then((newCred) => {
-        console.log("data", newCred);
-
+        console.log(newCred);
         let makeCredResponse = publicKeyCredentialToJSON(newCred);
+        console.log(makeCredResponse);
         return sendWebAuthnResponse(makeCredResponse);
       })
 
       .then((response) => {
         if (response.status === "ok") {
           // loadMainContainer();
-          alert("Register sucessfully");
+          window.location.replace("/mainbhhd");
         } else {
           alert(
             `Server responed with error. The message is: ${response.message}`

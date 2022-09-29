@@ -1,4 +1,4 @@
-import base64url from "base64url/dist/base64url";
+import { decode, encode } from "base64-arraybuffer";
 
 /**
  * Converts PublicKeyCredential into serialised JSON
@@ -14,8 +14,7 @@ export const publicKeyCredentialToJSON = (pubKeyCred) => {
   }
 
   if (pubKeyCred instanceof ArrayBuffer) {
-    // @ts-ignore
-    return base64url.encode(pubKeyCred);
+    return encode(pubKeyCred);
   }
 
   if (pubKeyCred instanceof Object) {
@@ -49,22 +48,20 @@ export const generateRandomBuffer = (len) => {
  * Decodes arrayBuffer required fields.
  */
 export const preformatMakeCredReq = (makeCredReq) => {
-  const newCred = makeCredReq;
-  newCred.challenge = base64url.decode(newCred.challenge);
-  newCred.user.id = base64url.decode(newCred.user.id);
-  console.log(newCred);
+  makeCredReq.challenge = decode(makeCredReq.challenge);
+  makeCredReq.user.id = decode(makeCredReq.user.id);
 
-  return newCred;
+  return makeCredReq;
 };
 
 /**
  * Decodes arrayBuffer required fields.
  */
 export const preformatGetAssertReq = (getAssert) => {
-  getAssert.challenge = base64url.decode(getAssert.challenge);
+  getAssert.challenge = decode(getAssert.challenge);
 
   for (let allowCred of getAssert.allowCredentials) {
-    allowCred.id = base64url.decode(allowCred.id);
+    allowCred.id = decode(allowCred.id);
   }
 
   return getAssert;
